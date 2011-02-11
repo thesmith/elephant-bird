@@ -350,14 +350,15 @@ public class ThriftToPig<M extends TBase<?, ?>> {
 
     @Override
     public void writeBinary(ByteBuffer bin) throws TException {
-      if (bin.hasArray()) { // Should be true, but its not in the contract to be sure.
-        int offset = bin.arrayOffset() + bin.position();
-        curContainer_.add(new DataByteArray(bin.array(), offset, offset + bin.remaining()));
-      } else { // copy to a new buffer.
-        byte[] buf = new byte[bin.remaining()];
-        bin.get(buf);
-        curContainer_.add(new DataByteArray(buf));
-      }
+      byte[] buf = new byte[bin.remaining()];
+      bin.mark();
+      bin.get(buf);
+      bin.reset();
+      curContainer_.add(new DataByteArray(buf));
+      /* We could use DataByteArray(byte[], start, end) and avoid a
+       * copy here.
+       * But that construction copies as well, quite inefficiently.
+       */
     }
 
     @Override
