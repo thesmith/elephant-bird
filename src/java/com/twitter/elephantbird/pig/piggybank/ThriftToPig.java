@@ -356,8 +356,7 @@ public class ThriftToPig<M extends TBase<?, ?>> {
       bin.reset();
       curContainer_.add(new DataByteArray(buf));
       /* We could use DataByteArray(byte[], start, end) and avoid a
-       * copy here.
-       * But that construction copies as well, quite inefficiently.
+       * copy here.  But the constructor will make a (quite inefficient) copy.
        */
     }
 
