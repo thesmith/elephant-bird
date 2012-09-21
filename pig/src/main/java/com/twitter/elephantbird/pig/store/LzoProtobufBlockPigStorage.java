@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.protobuf.Message;
-import com.google.protobuf.Message.Builder;
 import com.twitter.elephantbird.mapreduce.io.ProtobufWritable;
 import com.twitter.elephantbird.mapreduce.output.LzoProtobufBlockOutputFormat;
 import com.twitter.elephantbird.pig.util.PigToProtobuf;
@@ -27,8 +26,9 @@ import com.twitter.elephantbird.util.TypeRef;
 public class LzoProtobufBlockPigStorage<M extends Message> extends BaseStoreFunc {
   private static final Logger LOG = LoggerFactory.getLogger(LzoProtobufBlockPigStorage.class);
 
-  private TypeRef<M> typeRef_;
+  protected TypeRef<M> typeRef_;
   private ProtobufWritable<M> writable;
+  private M msgInstance;
 
   public LzoProtobufBlockPigStorage() {}
 
@@ -40,6 +40,8 @@ public class LzoProtobufBlockPigStorage<M extends Message> extends BaseStoreFunc
   protected void setTypeRef(TypeRef<M> typeRef) {
     typeRef_ = typeRef;
     writable = ProtobufWritable.newInstance(typeRef_.getRawClass());
+    msgInstance = (M) Protobufs.getMessageBuilder(typeRef_.getRawClass())
+                               .getDefaultInstanceForType();
   }
 
   @SuppressWarnings("unchecked")
@@ -48,13 +50,11 @@ public class LzoProtobufBlockPigStorage<M extends Message> extends BaseStoreFunc
     if (f == null) {
       return;
     }
-    Builder builder = Protobufs.getMessageBuilder(typeRef_.getRawClass());
     try {
-      writable.set((M) PigToProtobuf.tupleToMessage(builder, f));
+      writable.set((M) PigToProtobuf.tupleToMessage(msgInstance.newBuilderForType(), f));
       writer.write(null, writable);
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new IOException(e);
     }
   }
 

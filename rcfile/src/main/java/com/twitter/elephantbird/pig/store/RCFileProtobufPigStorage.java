@@ -22,12 +22,13 @@ public class RCFileProtobufPigStorage extends BaseStoreFunc {
   // add stats?
 
   private TypeRef<? extends Message> typeRef;
-  private Builder msgBuilder;
+  private Message msgInstance;
   private ProtobufWritable<Message> writable;
 
   public RCFileProtobufPigStorage(String protoClassName) {
     typeRef = Protobufs.getTypeRef(protoClassName);
-    msgBuilder = Protobufs.getMessageBuilder(typeRef.getRawClass());
+    msgInstance = Protobufs.getMessageBuilder(typeRef.getRawClass())
+                           .getDefaultInstanceForType();
     writable = ProtobufWritable.newInstance(Message.class);
   }
 
@@ -37,7 +38,7 @@ public class RCFileProtobufPigStorage extends BaseStoreFunc {
   }
 
   public void putNext(Tuple t) throws IOException {
-    Message msg = PigToProtobuf.tupleToMessage(msgBuilder.clone(), t);
+    Message msg = PigToProtobuf.tupleToMessage(msgInstance.newBuilderForType(), t);
     writable.set(msg);
     writeRecord(null, writable);
   }

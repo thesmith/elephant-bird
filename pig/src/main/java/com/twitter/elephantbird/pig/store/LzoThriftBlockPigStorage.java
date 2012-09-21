@@ -21,7 +21,7 @@ import com.twitter.elephantbird.util.TypeRef;
  */
 public class LzoThriftBlockPigStorage<T extends TBase<?, ?>> extends BaseStoreFunc {
 
-  private TypeRef<T> typeRef;
+  protected TypeRef<T> typeRef;
   private ThriftWritable<T> writable;
   private PigToThrift<T> pigToThrift;
 
