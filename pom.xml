@@ -76,7 +76,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>1.6.4</slf4j.version>
-    <apache.hadoop.version>2.0.4-SNAPSHOT</apache.hadoop.version>
+    <apache.hadoop.version>2.0.3-alpha</apache.hadoop.version>
     <apache.pig.version>0.10.1</apache.pig.version>
     <apache.hive.version>0.8.0</apache.hive.version>
     <apache.mahout.version>0.6</apache.mahout.version>
@@ -226,7 +226,7 @@
       <dependency>
         <groupId>com.google.protobuf</groupId>
         <artifactId>protobuf-java</artifactId>
-        <version>2.3.0</version>
+        <version>2.4.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.thrift</groupId>
