@@ -9,5 +9,7 @@
 .idea
 .project
 .settings
+**/target
+target
 core/test.txt
 build
