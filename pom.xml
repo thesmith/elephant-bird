@@ -478,13 +478,6 @@
           <version>1.7</version>
         </plugin>
 
-        <!-- protobuf -->
-        <plugin>
-          <groupId>com.github.igor-petruk.protobuf</groupId>
-          <artifactId>protobuf-maven-plugin</artifactId>
-          <version>0.4</version>
-        </plugin>
-
         <!-- thrift -->
         <plugin>
           <groupId>org.apache.thrift.tools</groupId>
@@ -527,19 +520,6 @@
                     <versionRange>[1.0.0,)</versionRange>
                     <goals>
                       <goal>copy-dependencies</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore />
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>com.github.igor-petruk.protobuf</groupId>
-                    <artifactId>protobuf-maven-plugin</artifactId>
-                    <versionRange>[0.4,)</versionRange>
-                    <goals>
-                      <goal>run</goal>
                     </goals>
                   </pluginExecutionFilter>
                   <action>
