@@ -9,7 +9,7 @@
 
   <groupId>com.twitter.elephantbird</groupId>
   <artifactId>elephant-bird</artifactId>
-  <version>3.0.7-SNAPSHOT</version>
+  <version>3.0.7-SNAPSHOT-LIBON</version>
   <packaging>pom</packaging>
 
   <name>Elephant Bird</name>
