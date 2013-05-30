@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
 
   <groupId>com.twitter.elephantbird</groupId>
   <artifactId>elephant-bird</artifactId>
@@ -85,14 +80,16 @@
 
   <repositories>
     <repository>
-      <id>twitter</id>
-      <url>http://maven.twttr.com</url>
+      <id>orange-vallee</id>
+      <name>Orange Vallée</name>
+      <url>https://intranet.orange-vallee.net/lifeisbetteron/nexus/content/groups/public/</url>
     </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <id>twitter</id>
-      <url>http://maven.twttr.com</url>
+      <id>orange-vallee</id>
+      <name>Orange Vallée</name>
+      <url>https://intranet.orange-vallee.net/lifeisbetteron/nexus/content/groups/public/</url>
     </pluginRepository>
   </pluginRepositories>
 
@@ -567,6 +564,13 @@
 
       </plugins>
     </pluginManagement>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-2</version>
+      </extension>
+    </extensions>
   </build>
 
   <modules>
@@ -580,5 +584,18 @@
     <module>pig-lucene</module>
     <module>examples</module>
   </modules>
+
+  <distributionManagement>
+    <repository>
+      <id>orange-vallee-release</id>
+      <name>Orange Vallee repository</name>
+      <url>dav:http://10.2.50.11:8080/lifeisbetteron/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>orange-vallee-snapshot</id>
+      <name>Orange Vallee snapshot repository</name>
+      <url>dav:http://10.2.50.11:8080/lifeisbetteron/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>
